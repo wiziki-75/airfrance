@@ -29,6 +29,9 @@
 	}
 	switch ($page){
 		case 1 : require_once ("home.php"); break; 
+		case 2 : require_once ("gestion_avion.php"); break; 
+		case 3 : require_once ("gestion_pilote.php"); break; 
+		case 4 : require_once ("gestion_vol.php"); break; 
 		default : require_once("erreur.php"); break;
 	}
 	?>
