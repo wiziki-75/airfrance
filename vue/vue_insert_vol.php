@@ -1,4 +1,4 @@
-<h3> Aout d'un vol </h3>
+<h3> Ajout d'un vol </h3>
 
 <form method="post">
     <table>
