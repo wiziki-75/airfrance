@@ -14,6 +14,36 @@
 				echo "Erreur connexion BDD : ".$exp->getMessage (); 
 			}
 		}
+
+		public function selectAllAvion(){
+			$requete ="select * from avion ; ";
+			$select = $this->unPDO->prepare ($requete); 
+			$select->execute();
+			return $select->fetchAll(); 
+		}
+
+		public function selectAllPilote(){
+			$requete ="select * from pilote ; ";
+			$select = $this->unPDO->prepare ($requete); 
+			$select->execute();
+			return $select->fetchAll(); 
+		}
+
+		public function selectAllVol(){
+			$requete ="select * from vol ; ";
+			$select = $this->unPDO->prepare ($requete); 
+			$select->execute();
+			return $select->fetchAll(); 
+		}
+
+		public function selectAllCategorie(){
+			$requete ="select * from categorie ; ";
+			$select = $this->unPDO->prepare ($requete); 
+			$select->execute();
+			return $select->fetchAll(); 
+		}
+
+		
 	}
 ?>
 
