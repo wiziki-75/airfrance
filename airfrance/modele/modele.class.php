@@ -4,7 +4,7 @@
 
 		public function __construct (){
 			try{
-			$url ="mysql:host=localhost:8889;dbname=airfrance"; 
+			$url ="mysql:host=localhost;dbname=airfrance"; 
 			$user = "root"; 
 			$mdp =""; 
 			//instanciation de la classe PDO 
