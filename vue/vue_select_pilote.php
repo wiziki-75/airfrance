@@ -7,7 +7,6 @@
 <br>
 <table border="1">
 	<tr>
-		<td> ID Pilote </td>
 		<td> Nom Pilote </td>
 		<td> Prénom Pilote  </td>
 		<td> Email </td>
@@ -18,7 +17,6 @@
 	if (isset($lesPilotes)){
 		foreach($lesPilotes as $unPilote){
 			echo "<tr>"; 
-			echo "<td>".$unPilote['idpilote']."</td>";
 			echo "<td>".$unPilote['nom']."</td>";
 			echo "<td>".$unPilote['prenom']."</td>";
 			echo "<td>".$unPilote['email']."</td>";

@@ -15,12 +15,12 @@
 
 	<?php
 	if (isset($lesAvion)){
-		foreach($lesAvion as $LAVION){
+		foreach($lesAvion as $unAvion){
 			echo "<tr>"; 
-			echo "<td>".$Avion['Nomavion']."</td>";
-			echo "<td>".$Avion['Capaciteavion']."</td>";
-			echo "<td>".$Avion['Dateachat']."</td>";
-			echo "<td>".$Avion['Constructeur']."</td>";
+			echo "<td>".$unAvion['designation']."</td>";
+			echo "<td>".$unAvion['capacite']."</td>";
+			echo "<td>".$unAvion['dateAchat']."</td>";
+			echo "<td>".$unAvion['nom_constructeur']."</td>";
 			echo "</tr>" ;
 		}
 	}

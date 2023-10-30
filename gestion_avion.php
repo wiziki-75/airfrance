@@ -5,7 +5,8 @@
 
 	require_once ("vue/vue_insert_avion.php"); 
 
-	require_once ("vue/vue_select_avion.php"); 
+	$lesAvion = $unControleur->selectAllAvion();
 
+	require_once ("vue/vue_select_avion.php"); 
 
 ?>
