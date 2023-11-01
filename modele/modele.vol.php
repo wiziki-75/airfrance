@@ -1,12 +1,12 @@
 <?php
-	class Modele {
+	class Vol {
 		private $unPDO ; //php data object 
 
 		public function __construct (){
 			try{
 			$url ="mysql:host=localhost;dbname=airfrance"; 
 			$user = "root"; 
-			$mdp =""; 
+			$mdp ="laragon"; 
 			//instanciation de la classe PDO 
 			$this->unPDO = new PDO($url, $user, $mdp);
 			}
