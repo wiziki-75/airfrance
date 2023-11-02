@@ -27,5 +27,9 @@
 		public function selectAllVol(){
 			return $this->vol->selectAllVol();
 		}
+
+		public function selectAllConstructeur(){
+			return $this->categorie->selectAllConstructeur();
+		}
 	}
 ?>
