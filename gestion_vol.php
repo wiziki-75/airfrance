@@ -3,7 +3,9 @@
 
 <?php
 
-	require_once ("vue/vue_insert_vol.php"); 
+	require_once ("vue/vue_insert_vol.php");
+	
+	$lesVols = $unControleur->selectAllVol();
 
 	require_once ("vue/vue_select_vol.php"); 
 

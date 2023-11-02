@@ -7,18 +7,20 @@
 <br>
 <table border="1">
 	<tr>
-		<td> Nom Vol</td>
-		<td> Heures vol  </td>
-		<td> Destination Vol </td>
+		<td>Date</td>
+		<td>Désignation</td>
+		<td>Avion</td>
+		<td>Pilotes</td>
 	</tr>
 
 	<?php
 	if (isset($lesVols)){
 		foreach($lesVols as $Levol){
 			echo "<tr>"; 
-			echo "<td>".$Levol['NomVol']."</td>";
-			echo "<td>".$Levol['HeuresVol']."</td>";
-			echo "<td>".$Levol['Destination vol']."</td>";
+			echo "<td>".$Levol['datevol']."</td>";
+			echo "<td>".$Levol['designation']."</td>";
+			echo "<td>".$Levol['NomAvion']."</td>";
+			echo "<td>".$Levol['NomPilote1']. " & " . $Levol['NomPilote2'] . "</td>";
 			echo "</tr>" ;
 		}
 	}

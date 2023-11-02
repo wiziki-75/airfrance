@@ -6,7 +6,7 @@
 			try{
 			$url ="mysql:host=localhost;dbname=airfrance"; 
 			$user = "root"; 
-			$mdp =""; 
+			$mdp ="laragon"; 
 			//instanciation de la classe PDO 
 			$this->unPDO = new PDO($url, $user, $mdp);
 			}

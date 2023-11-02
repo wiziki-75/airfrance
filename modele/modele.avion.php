@@ -2,8 +2,8 @@
 	class Avion extends BDD {
 
 		public function selectAllAvion(){
-			$requete ="SELECT Avion.*, Constructeur.nom AS nom_constructeur
-			FROM Avion
+			$requete ="SELECT avion.*, Constructeur.nom AS nom_constructeur
+			FROM avion
 			JOIN Constructeur ON Avion.idconstructeur = Constructeur.idconstructeur;
 			";
 			$select = $this->unPDO->prepare ($requete); 

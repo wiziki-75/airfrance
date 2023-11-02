@@ -1,22 +1,12 @@
 <?php
 	class Vol extends BDD {
 
-		public function selectAllAvion(){
-			$requete ="select * from avion ; ";
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute();
-			return $select->fetchAll(); 
-		}
-
-		public function selectAllPilote(){
-			$requete ="select * from pilote ; ";
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute();
-			return $select->fetchAll(); 
-		}
-
 		public function selectAllVol(){
-			$requete ="select * from vol ; ";
+			$requete ="SELECT vol.*, avion.designation AS NomAvion, pilote.nom AS NomPilote1, pilote.prenom AS PrenomPilote1, pilote2.nom AS NomPilote2, pilote2.prenom AS PrenomPilote2
+			FROM vol
+			JOIN avion ON vol.idavion = avion.idavion
+			JOIN pilote ON vol.idpilote1 = pilote.idpilote
+			JOIN pilote pilote2 ON vol.idpilote2 = pilote2.idpilote"; 
 			$select = $this->unPDO->prepare ($requete); 
 			$select->execute();
 			return $select->fetchAll(); 

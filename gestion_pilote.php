@@ -43,7 +43,7 @@
 		$filtre = $_POST['filtre']; 
 		$lesPilotes = $unControleur->selectLikePilotes ($filtre);
 	}else{
-		//$lesPilotes = $unControleur->selectAllPilotes();
+		$lesPilotes = $unControleur->selectAllPilote();
 	}
 
 	require_once ("vue/vue_select_pilote.php"); 

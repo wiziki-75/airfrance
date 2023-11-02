@@ -19,5 +19,13 @@
 		public function selectAllAvion(){
 			return $this->avion->selectAllAvion();
 		}
+
+		public function selectAllPilote(){
+			return $this->pilote->selectAllPilote();
+		}
+
+		public function selectAllVol(){
+			return $this->vol->selectAllVol();
+		}
 	}
 ?>
