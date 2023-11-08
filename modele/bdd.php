@@ -1,18 +1,20 @@
 <?php
-    class BDD {
-        public $unPDO ; //php data object 
+class BDD {
+    public $unPDO; // Objet PDO
 
-        public function __construct (){
-			try{
-			$url ="mysql:host=localhost;dbname=airfrance"; 
-			$user = "root"; 
-			$mdp =""; 
-			//instanciation de la classe PDO 
-			$this->unPDO = new PDO($url, $user, $mdp);
-			}
-			catch (PDOException $exp){
-				echo "Erreur connexion BDD : ".$exp->getMessage (); 
-			}
-		}
+    public function __construct(){
+        $url = "mysql:host=localhost;dbname=airfrance";
+        $user = "root";
+        $mdp = "laragon";
+
+        try {
+            // Instanciation de la classe PDO
+            $this->unPDO = new PDO($url, $user, $mdp);
+            $this->unPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Définir le mode d'erreur
+        } catch (PDOException $exp) {
+            die("Erreur connexion BDD : " . $exp->getMessage());
+        }
     }
+}
+
 ?>

@@ -1,80 +1,79 @@
 <?php
-	class Pilote extends BDD {
+class Pilote extends BDD {
 
-		public function selectAllAvion(){
-			$requete ="select * from avion ; ";
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute();
-			return $select->fetchAll(); 
-		}
+    public function selectAllPilote(){
+        return $this->executeQuery("SELECT * FROM pilote");
+    }
 
-		public function selectAllPilote(){
-			$requete ="select * from pilote ; ";
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute();
-			return $select->fetchAll(); 
-		}
+    private function buildDataArray($tab) {
+        return array(
+            ":nom" => $tab["nom"], 
+            ":prenom" => $tab["prenom"],
+            ":adresse" => $tab["adresse"],
+            ":email" => $tab["email"],
+            ":nbvols" => $tab["nbvols"]
+        );
+    }
 
-		public function selectAllVol(){
-			$requete ="select * from vol ; ";
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute();
-			return $select->fetchAll(); 
-		}
+    public function insertPilote($tab){
+        $this->executeQuery(
+            "INSERT INTO pilote VALUES (null, :nom, :prenom, :adresse, :email, :nbvols)",
+            $this->buildDataArray($tab)
+        );
+    }
 
-		public function selectAllCategorie(){
-			$requete ="select * from categorie ; ";
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute();
-			return $select->fetchAll(); 
-		}
+    public function deletePilote($idpilote){
+        // Débuter une transaction pour assurer que toutes les opérations sont exécutées correctement
+        $this->unPDO->beginTransaction();
+    
+        try {
+            // Premièrement, supprimer tous les vols liés à ce pilote
+            $requeteVol = "DELETE FROM vol WHERE idpilote1 = :idpilote OR idpilote2 = :idpilote";
+            $stmtVol = $this->unPDO->prepare($requeteVol);
+            $stmtVol->execute(array(":idpilote" => $idpilote));
+    
+            // Deuxièmement, supprimer le pilote maintenant que les vols sont supprimés
+            $requetePilote = "DELETE FROM pilote WHERE idpilote = :idpilote";
+            $stmtPilote = $this->unPDO->prepare($requetePilote);
+            $stmtPilote->execute(array(":idpilote" => $idpilote));
+    
+            // Tout s'est bien passé, on peut valider les modifications
+            $this->unPDO->commit();
+        } catch (Exception $e) {
+            // S'il y a une erreur, on annule tout
+            $this->unPDO->rollBack();
+            throw $e; // Vous pouvez choisir de gérer l'exception différemment selon votre application
+        }
+    }
+    
 
-		public function insertPilote ($tab){
-			$requete ="insert into pilote values(null,:nom, :prenom, :adresse, :email, :nbvols) ;";
-			$select = $this->unPDO->prepare ($requete); 
-			$donnees= array(
-						":nom"=>$tab["nom"], 
-						":prenom"=>$tab["prenom"],
-						":adresse"=>$tab["adresse"],
-						":email"=>$tab["email"],
-						":nbvols"=>$tab["nbvols"]
-						);
-			$select->execute($donnees);
-		}
+    public function selectWherePilote($idpilote){
+        return $this->executeQuery(
+            "SELECT * FROM pilote WHERE idpilote=:idpilote",
+            array(":idpilote" => $idpilote),
+            true
+        );
+    }
 
-		public function deletePilote ($idpilote){
-			$requete ="delete from pilote where idpilote=:idpilote ;"; 
-			$select = $this->unPDO->prepare ($requete); 
-			$donnees=array(":idpilote"=>$idpilote);
-			$select->execute($donnees);
-		}
+    public function updatePilote($tab){
+        $this->executeQuery(
+            "UPDATE pilote SET nom=:nom, prenom=:prenom, adresse=:adresse, email=:email, nbvols=:nbvols WHERE idpilote=:idpilote",
+            $this->buildDataArray($tab) + array(":idpilote" => $tab["idpilote"])
+        );
+    }
 
-		public function selectWherePilote ($idpilote){
-			$requete="select * from pilote where idpilote=:idpilote;";
-			$select = $this->unPDO->prepare ($requete); 
-			$donnees=array(":idpilote"=>$idpilote);
-			$select->execute($donnees);
-			return $select->fetch() ;
-		}
+    public function selectLikePilote($filtre){
+        return $this->executeQuery(
+            "SELECT * FROM pilote WHERE nom LIKE :filtre OR prenom LIKE :filtre",
+            array(":filtre" => "%$filtre%")
+        );
+    }
 
-		public function updatePilote ($tab){
-			$requete ="update pilote set nom =:nom, prenom =:prenom, adresse =:adresse, email=:email, nbvols=:nbvols where idpilote = :idpilote; ";
-			$donnees= array(
-						":nom"=>$tab["nom"], 
-						":prenom"=>$tab["prenom"],
-						":adresse"=>$tab["adresse"],
-						":email"=>$tab["email"],
-						":nbvols"=>$tab["nbvols"]
-						);
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute($donnees);
-		}
-		public function selectLikePilotes ($filtre){
-			$requete ="select * from pilote where nom like :filtre or prenom like :filtre ; ";
-			$select = $this->unPDO->prepare ($requete); 
-			$donnees=array(":filtre"=>"%".$filtre."%");
-			$select->execute($donnees);
-			return $select->fetchAll(); 
-		}
-	}
+    private function executeQuery($query, $params = array(), $single = false){
+        $stmt = $this->unPDO->prepare($query);
+        $stmt->execute($params);
+        return $single ? $stmt->fetch() : $stmt->fetchAll();
+    }
+}
+
 ?>

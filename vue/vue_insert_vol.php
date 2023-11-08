@@ -1,39 +1,58 @@
-<h3> Ajout d'un vol </h3>
+<h3> Ajout d'un nouveau vol </h3>
 
 <form method="post">
     <table>
         <tr>
-            <td>Nom du vol</td>
-            <td><input type="text" name="NomVol"></td>
-</tr>
-<tr>
-            <td>Heure du Vol</td>
-            <td><input type="text" name="Heuresvol"></td>
-</tr>
-<tr>
-            <td>Destination du Vol</td>
-            <td><input type="text" name="DestinationVol"></td>
-</tr>
-<tr>
+            <td>Date du vol</td>
+            <td><input type="date" name="datevol" value="<?= $leVol['datevol'] ?? ''; ?>"></td>
+        </tr>
+        <tr>
+            <td>Désignation</td>
+            <td><input type="text" name="designation" value="<?= $leVol['designation'] ?? ''; ?>"></td>
+        </tr>
+        <tr>
             <td>Avion</td>
-            <td><select name="Avion">
-</select></td>
-<tr>
-            <td> Pilote 1</td>
-            <td><select name="idpilote1">
-</select></td>
-<tr>
-            <td> Pilote 2</td>
-            <td><select name="idPilote2">
-</select></td>
-            <td> </td>
+            <td>
+                <select name="idavion">
+                    <?php foreach ($lesAvion as $unAvion): ?>
+                        <option value="<?= htmlspecialchars($unAvion['idavion']) ?>">
+                            <?= htmlspecialchars($unAvion['designation']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Pilote 1</td>
+            <td>
+                <select name="idpilote1">
+                    <?php foreach ($lesPilotes as $unPilote): ?>
+                        <option value="<?= htmlspecialchars($unPilote['idpilote']) ?>">
+                            <?= htmlspecialchars($unPilote['nom']) . ' ' . htmlspecialchars($unPilote['prenom']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Pilote 2</td>
+            <td>
+                <select name="idpilote2">
+                    <?php foreach ($lesPilotes as $unPilote): ?>
+                        <option value="<?= htmlspecialchars($unPilote['idpilote']) ?>">
+                            <?= htmlspecialchars($unPilote['nom']) . ' ' . htmlspecialchars($unPilote['prenom']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
             <td>
                 <input type="reset" name="Annuler" value="Annuler">
-                <input type="submit" name="Valider" value="Valider">
-
-</td>
-</tr>
-
-</table>
-
+                <input hidden type="text" name="idvol" value="<?= $leVol['idvol'] ?? ''; ?>">
+                <input type="submit" name="<?= isset($leVol['idvol']) ? 'Modifier' : 'Valider'; ?>" value="<?= isset($leVol['idvol']) ? 'Modifier' : 'Valider'; ?>">
+            </td>
+        </tr>
+    </table>
 </form>

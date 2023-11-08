@@ -1,13 +1,36 @@
-<h2> Gestion des vols </h2>
-
-
 <?php
+$lesAvion = $unControleur->selectAllAvion();
+$lesVols = $unControleur->selectAllVol();
+$lesPilotes = $unControleur->selectAllPilote();
 
-	require_once ("vue/vue_insert_vol.php");
-	
-	$lesVols = $unControleur->selectAllVol();
+$action = isset($_GET['action']) ? $_GET['action'] : '';
+$idvol = isset($_GET['idvol']) ? $_GET['idvol'] : '';
 
-	require_once ("vue/vue_select_vol.php"); 
+switch ($action) {
+    case 'sup':
+        $unControleur->deleteVol($idvol);
+        header("Location: index.php?page=4");
+        exit;
+    case 'edit':
+        $leVol = $unControleur->selectWhereVol($idvol);
+        break;
+}
 
+require_once "vue/vue_insert_vol.php";
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['Valider'])) {
+        $unControleur->insertVol($_POST);
+    } elseif (isset($_POST['Modifier'])) {
+        $unControleur->updateVol($_POST);
+    }
+
+    header("Location: index.php?page=4");
+    exit;
+}
+
+$filtre = isset($_POST['Filtrer']) ? $_POST['filtre'] : '';
+$lesVols = $filtre ? $unControleur->selectLikeVol($filtre) : $unControleur->selectAllVol();
+
+require_once "vue/vue_select_vol.php";
 ?>

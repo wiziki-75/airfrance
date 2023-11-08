@@ -3,14 +3,14 @@ CREATE DATABASE airfrance;
 USE airfrance;
 
 CREATE TABLE Constructeur (
-    idconstructeur INT PRIMARY KEY,
+    idconstructeur INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255),
     pays VARCHAR(255),
     statut VARCHAR(255)
 );
 
 CREATE TABLE Avion (
-    idavion INT PRIMARY KEY,
+    idavion INT AUTO_INCREMENT PRIMARY KEY,
     designation VARCHAR(255),
     capacite INT,
     dateAchat DATE,
@@ -19,7 +19,7 @@ CREATE TABLE Avion (
 );
 
 CREATE TABLE Pilote (
-    idpilote INT PRIMARY KEY,
+    idpilote INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255),
     prenom VARCHAR(255),
     adresse VARCHAR(255),
@@ -28,7 +28,7 @@ CREATE TABLE Pilote (
 );
 
 CREATE TABLE Vol (
-    idvol INT PRIMARY KEY,
+    idvol INT AUTO_INCREMENT PRIMARY KEY,
     datevol DATE,
     designation VARCHAR(255),
     idavion INT,

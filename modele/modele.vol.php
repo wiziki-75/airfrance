@@ -1,70 +1,71 @@
 <?php
-	class Vol extends BDD {
+class Vol extends BDD {
 
-		public function selectAllVol(){
-			$requete ="SELECT vol.*, avion.designation AS NomAvion, pilote.nom AS NomPilote1, pilote.prenom AS PrenomPilote1, pilote2.nom AS NomPilote2, pilote2.prenom AS PrenomPilote2
-			FROM vol
-			JOIN avion ON vol.idavion = avion.idavion
-			JOIN pilote ON vol.idpilote1 = pilote.idpilote
-			JOIN pilote pilote2 ON vol.idpilote2 = pilote2.idpilote"; 
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute();
-			return $select->fetchAll(); 
-		}
+    private function prepareDataArray($tab, $includeId = false) {
+        $data = array(
+            ":datevol" => $tab["datevol"], 
+            ":designation" => $tab["designation"],
+            ":idavion" => $tab["idavion"],
+            ":idpilote1" => $tab["idpilote1"],
+            ":idpilote2" => $tab["idpilote2"]
+        );
+        if ($includeId) {
+            $data[":idvol"] = $tab["idvol"];
+        }
+        return $data;
+    }
 
-		public function selectAllCategorie(){
-			$requete ="select * from categorie ; ";
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute();
-			return $select->fetchAll(); 
-		}
+    public function selectAllVol(){
+        return $this->executeQuery(
+            "SELECT vol.*, avion.designation AS NomAvion, pilote.nom AS NomPilote1, pilote.prenom AS PrenomPilote1, pilote2.nom AS NomPilote2, pilote2.prenom AS PrenomPilote2
+            FROM vol
+            JOIN avion ON vol.idavion = avion.idavion
+            JOIN pilote ON vol.idpilote1 = pilote.idpilote
+            JOIN pilote pilote2 ON vol.idpilote2 = pilote2.idpilote"
+        );
+    }
 
-		public function insertPilote ($tab){
-			$requete ="insert into pilote values(null,:nom, :prenom, :adresse, :email, :nbvols) ;";
-			$select = $this->unPDO->prepare ($requete); 
-			$donnees= array(
-						":nom"=>$tab["nom"], 
-						":prenom"=>$tab["prenom"],
-						":adresse"=>$tab["adresse"],
-						":email"=>$tab["email"],
-						":nbvols"=>$tab["nbvols"]
-						);
-			$select->execute($donnees);
-		}
+    public function insertVol($tab){
+        $this->executeQuery(
+            "INSERT INTO vol VALUES (null, :datevol, :designation, :idavion, :idpilote1, :idpilote2)",
+            $this->prepareDataArray($tab)
+        );
+    }
 
-		public function deletePilote ($idpilote){
-			$requete ="delete from pilote where idpilote=:idpilote ;"; 
-			$select = $this->unPDO->prepare ($requete); 
-			$donnees=array(":idpilote"=>$idpilote);
-			$select->execute($donnees);
-		}
+    public function deleteVol($idvol){
+        $this->executeQuery(
+            "DELETE FROM vol WHERE idvol=:idvol",
+            array(":idvol" => $idvol)
+        );
+    }
 
-		public function selectWherePilote ($idpilote){
-			$requete="select * from pilote where idpilote=:idpilote;";
-			$select = $this->unPDO->prepare ($requete); 
-			$donnees=array(":idpilote"=>$idpilote);
-			$select->execute($donnees);
-			return $select->fetch() ;
-		}
+    public function selectWhereVol($idvol){
+        return $this->executeQuery(
+            "SELECT * FROM vol WHERE idvol=:idvol",
+            array(":idvol" => $idvol),
+            true
+        );
+    }
 
-		public function updatePilote ($tab){
-			$requete ="update pilote set nom =:nom, prenom =:prenom, adresse =:adresse, email=:email, nbvols=:nbvols where idpilote = :idpilote; ";
-			$donnees= array(
-						":nom"=>$tab["nom"], 
-						":prenom"=>$tab["prenom"],
-						":adresse"=>$tab["adresse"],
-						":email"=>$tab["email"],
-						":nbvols"=>$tab["nbvols"]
-						);
-			$select = $this->unPDO->prepare ($requete); 
-			$select->execute($donnees);
-		}
-		public function selectLikePilotes ($filtre){
-			$requete ="select * from pilote where nom like :filtre or prenom like :filtre ; ";
-			$select = $this->unPDO->prepare ($requete); 
-			$donnees=array(":filtre"=>"%".$filtre."%");
-			$select->execute($donnees);
-			return $select->fetchAll(); 
-		}
-	}
+    public function updateVol($tab){
+        $this->executeQuery(
+            "UPDATE vol SET datevol=:datevol, designation=:designation, idavion=:idavion, idpilote1=:idpilote1, idpilote2=:idpilote2 WHERE idvol=:idvol",
+            $this->prepareDataArray($tab, true)
+        );
+    }
+
+    public function selectLikeVol($filtre){
+        return $this->executeQuery(
+            "SELECT * FROM vol WHERE datevol LIKE :filtre OR designation LIKE :filtre",
+            array(":filtre" => "%$filtre%")
+        );
+    }
+
+    private function executeQuery($query, $params = array(), $single = false){
+        $stmt = $this->unPDO->prepare($query);
+        $stmt->execute($params);
+        return $single ? $stmt->fetch() : $stmt->fetchAll();
+    }
+}
+
 ?>
