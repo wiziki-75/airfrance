@@ -49,7 +49,11 @@
 	<?php 
 	}
 	if (isset($_GET['page'])){
-		$page = $_GET['page'];
+		if(isset($_SESSION['email'])){
+			$page = $_GET['page'];
+		} else {
+			header('Location: index.php');
+		}
 	}else {
 		$page = 1; 
 	}
