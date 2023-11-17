@@ -53,6 +53,7 @@
 			$page = $_GET['page'];
 		} else {
 			header('Location: index.php');
+			exit();
 		}
 	}else {
 		$page = 1; 
