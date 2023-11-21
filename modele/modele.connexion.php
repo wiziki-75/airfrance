@@ -1,10 +1,26 @@
 <?php
 class Connexion extends BDD {
     public function verifConnexion($email, $mdp){
-        $requete = "SELECT * FROM utilisateur WHERE email = :email AND mdp = :mdp";
-        $donnees = array(":email" => $email, ":mdp" => $mdp);
+        // Étape 1: Récupérer le sel de l'utilisateur
+        $requete = "SELECT * FROM utilisateur WHERE email = :email";
+        $donnees = array(":email" => $email);
         $select = $this->unPDO->prepare($requete); 
         $select->execute($donnees);
-        return $select->fetch();
+        $resultat = $select->fetch();
+
+        if (!$resultat) {
+            // Utilisateur non trouvé
+            return false;
+        }
+
+        $mdpHache = hash('sha256', $mdp . $resultat['salt']);
+
+        if($mdpHache === $resultat['mdp']){
+            return $resultat;
+        } else {
+            return false;
+        }
+        
     }
 }
+
