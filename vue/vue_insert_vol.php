@@ -47,12 +47,9 @@
             </td>
         </tr>
         <tr>
-            <td></td>
-            <td>
-                <input type="reset" name="Annuler" value="Annuler">
-                <input hidden type="text" name="idvol" value="<?= $leVol['idvol'] ?? ''; ?>">
-                <input type="submit" name="<?= isset($leVol['idvol']) ? 'Modifier' : 'Valider'; ?>" value="<?= isset($leVol['idvol']) ? 'Modifier' : 'Valider'; ?>">
-            </td>
         </tr>
     </table>
+    <input type="reset" name="Annuler" value="Annuler">
+                <input hidden type="text" name="idvol" value="<?= $leVol['idvol'] ?? ''; ?>">
+                <input type="submit" name="<?= isset($leVol['idvol']) ? 'Modifier' : 'Valider'; ?>" value="<?= isset($leVol['idvol']) ? 'Modifier' : 'Valider'; ?>">
 </form>

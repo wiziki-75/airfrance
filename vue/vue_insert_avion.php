@@ -27,12 +27,9 @@
                     <?php endif; ?>
                 </select>
             </td>
-            <td></td>
-            <td>
-                <input type="reset" name="Annuler" value="Annuler">
-                <input hidden type="text" name="idavion" value="<?= isset($_GET['action']) && $_GET['action'] === "edit" ? htmlspecialchars($avion['idavion']) : ''; ?>">
-                <input type="submit" name="<?= $submitValue = isset($_GET['action']) && $_GET['action'] === "edit" ? "Modifier" : "Valider"; ?>" value="<?= $submitValue ?>">
-            </td>
         </tr>
     </table>
+    <input type="reset" name="Annuler" value="Annuler">
+                <input hidden type="text" name="idavion" value="<?= isset($_GET['action']) && $_GET['action'] === "edit" ? htmlspecialchars($avion['idavion']) : ''; ?>">
+                <input type="submit" name="<?= $submitValue = isset($_GET['action']) && $_GET['action'] === "edit" ? "Modifier" : "Valider"; ?>" value="<?= $submitValue ?>">
 </form>
