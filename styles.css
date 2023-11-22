@@ -100,4 +100,90 @@ table {
     box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4); /* Ombre pour l'en-tête du tableau */
   }
   
+  .form-style {
+    max-width: 300px; /* Largeur maximale du formulaire */
+    margin: 0 auto; /* Centrage du formulaire */
+    padding: 20px; /* Espace à l'intérieur du formulaire */
+    background: #f7f7f7; /* Couleur de fond du formulaire */
+    border-radius: 8px; /* Coins arrondis pour le formulaire */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre pour le formulaire */
+  }
+  
+  .input-group {
+    margin-bottom: 20px; /* Espace entre les groupes d'input */
+  }
+  
+  .input-group label {
+    display: block; /* Assure que le label est au-dessus de l'input */
+    margin-bottom: 5px; /* Espace entre le label et l'input */
+    color: #333; /* Couleur du texte pour le label */
+  }
+  
+  .input-group input[type="text"],
+  .input-group input[type="password"] {
+    width: 100%; /* Utilise toute la largeur disponible */
+    padding: 8px; /* Espace à l'intérieur de l'input */
+    border: 1px solid #ccc; /* Bordure de l'input */
+    border-radius: 4px; /* Coins arrondis pour l'input */
+  }
+  
+  .input-group input[type="submit"] {
+    width: 100%; /* Utilise toute la largeur disponible */
+    padding: 10px; /* Espace à l'intérieur du bouton */
+    border: none; /* Pas de bordure pour le bouton */
+    background-color: #5c6bc0; /* Couleur de fond pour le bouton */
+    color: white; /* Couleur du texte pour le bouton */
+    border-radius: 4px; /* Coins arrondis pour le bouton */
+    cursor: pointer; /* Curseur main pour indiquer la possibilité de cliquer */
+  }
+  
+  .input-group input[type="submit"]:hover {
+    background-color: #3f51b5; /* Changement de couleur lors du survol */
+  }
 
+  .compact-form {
+  max-width: 300px; /* Réduction de la largeur pour un aspect plus compact */
+  margin: 0 auto;
+  padding: 10px; /* Padding réduit */
+  background: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.compact-input-group {
+  margin-bottom: 10px; /* Réduction de l'espace entre les groupes */
+}
+
+.compact-input-group label {
+  display: block;
+  margin-bottom: 3px; /* Réduction de l'espace entre le label et l'input */
+  font-size: 14px; /* Réduction de la taille de police */
+}
+
+.compact-input-group input[type="text"],
+.compact-input-group input[type="date"],
+.compact-input-group select {
+  width: 100%;
+  padding: 6px; /* Padding réduit */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.compact-input-group input[type="reset"],
+.compact-input-group input[type="submit"] {
+  width: 48%;
+  padding: 8px; /* Padding légèrement réduit */
+  margin-right: 4%;
+  border: none;
+  background-color: #5c6bc0;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.compact-input-group input[type="reset"]:hover,
+.compact-input-group input[type="submit"]:hover {
+  background-color: #3f51b5;
+}
+
+  
