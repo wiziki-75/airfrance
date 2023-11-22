@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="styles.css">	
 	<?php
 		if(!isset($_SESSION['email'])){
 			require_once("vue/vue_connexion.php");
