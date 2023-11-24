@@ -9,6 +9,7 @@ $idvol = isset($_GET['idvol']) ? $_GET['idvol'] : '';
 switch ($action) {
     case 'sup':
         $unControleur->deleteVol($idvol);
+        $unControleur->insertLogs("deleteVol");
         header("Location: index.php?page=4");
         exit;
     case 'edit':
@@ -21,8 +22,10 @@ require_once "vue/vue_insert_vol.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['Valider'])) {
         $unControleur->insertVol($_POST);
+        $unControleur->insertLogs("insertVol");
     } elseif (isset($_POST['Modifier'])) {
         $unControleur->updateVol($_POST);
+        $unControleur->insertLogs("updateVol");
     }
 
     header("Location: index.php?page=4");

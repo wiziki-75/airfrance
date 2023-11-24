@@ -21,6 +21,7 @@
 					$_SESSION['nom'] = $unUser['nom'];
 					$_SESSION['prenom'] = $unUser['prenom'];
 					$_SESSION['role'] = $unUser['role'];
+					$unControleur->insertLogs("login");
 					header("Location: index.php?page=1");
 				} else {
 					echo "<br> Logs incorrect.";
@@ -65,6 +66,7 @@
 		case 3 : require_once ("gestion_pilote.php"); break; 
 		case 4 : require_once ("gestion_vol.php"); break; 
 		case 5 : 
+			$unControleur->insertLogs("logoff");
 			session_destroy();
 			unset($_SESSION);
 			header("Location: index.php");

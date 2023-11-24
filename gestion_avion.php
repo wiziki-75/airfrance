@@ -8,6 +8,7 @@ $idavion = $_GET['idavion'] ?? '';
 switch ($action) {
     case 'sup':
         $unControleur->deleteAvion($idavion);
+        $unControleur->insertLogs("deleteAvion");
         header("Location: index.php?page=2");
         exit;
     case 'edit':
@@ -22,8 +23,10 @@ require_once "vue/vue_insert_avion.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['Valider'])) {
         $unControleur->insertAvion($_POST);
+        $unControleur->insertLogs("insertAvion");
     } elseif (isset($_POST['Modifier'])) {
         $unControleur->updateAvion($_POST);
+        $unControleur->insertLogs("updateAvion");
     }
 
     header("Location: index.php?page=2");

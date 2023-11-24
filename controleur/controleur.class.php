@@ -13,6 +13,7 @@ class Controleur {
             'pilote' => Pilote::class,
             'vol' => Vol::class,
             'connexion' => Connexion::class,
+            'logs' => Logs::class
         ];
     }
 
